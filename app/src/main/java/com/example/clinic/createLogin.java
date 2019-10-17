@@ -39,7 +39,7 @@ public class createLogin extends AppCompatActivity {
 
 
     private Boolean validate(){
-        
+
         String nameVal = Name.getText().toString();
         String roleVal = role.getText().toString();
         String usernameVal = username.getText().toString();

@@ -1,5 +1,6 @@
 package com.example.clinic;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,20 +21,30 @@ import com.google.firebase.database.DatabaseReference;
 public class Login extends AppCompatActivity implements View.OnClickListener{
 
     private EditText userEmail, userPassword;
-    private Button loginBtn;
+    private Button loginBtn, createAcc;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         loginBtn = findViewById(R.id.loginBtn);
+        createAcc = (Button) findViewById(R.id.createAcc);
         mAuth = FirebaseAuth.getInstance();
         System.out.println("I got here");
         setUpUIViews();
         //validate();
+
+        createAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Login.this, createLogin.class));
+
+            }
+        });
 
     }
     @Override
@@ -42,6 +53,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         switch (view.getId()) {
             case R.id.loginBtn:
                 validate();
+//
+//            case R.id.createAcc:
+//                startActivity(new Intent(Login.this, createLogin.class));
         }
     }
 

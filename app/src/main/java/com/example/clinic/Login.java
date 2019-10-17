@@ -52,7 +52,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     {
         switch (view.getId()) {
             case R.id.loginBtn:
-                validate();
+                if (validate() == true){
+                    startActivity(new Intent(Login.this, WelcomePage.class));
+                }
 //
 //            case R.id.createAcc:
 //                startActivity(new Intent(Login.this, createLogin.class));
@@ -80,6 +82,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {
                                 Toast.makeText(Login.this,"Account Authenticated",Toast.LENGTH_SHORT).show();
+
                             }
                             else{
                                 Toast.makeText(Login.this,"Authentication Failed",Toast.LENGTH_SHORT).show();

@@ -23,8 +23,9 @@ public class createLogin extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validate();
-                startActivity( new Intent(createLogin.this, Login.class));
+                if (validate() == true) {
+                    startActivity(new Intent(createLogin.this, Login.class));
+                }
             }
         });
     }
@@ -40,6 +41,8 @@ public class createLogin extends AppCompatActivity {
 
     private Boolean validate(){
 
+        Boolean retVal = false;
+
         String nameVal = Name.getText().toString();
         String roleVal = role.getText().toString();
         String usernameVal = username.getText().toString();
@@ -48,11 +51,19 @@ public class createLogin extends AppCompatActivity {
 
         if (nameVal.isEmpty() || roleVal.isEmpty() || usernameVal.isEmpty() || pwdVal.isEmpty() || confpwdVal.isEmpty()){
             Toast.makeText(createLogin.this, "You are missing some information", Toast.LENGTH_SHORT).show();
+
             }
 
-        else if(pwdVal != confpwdVal){
+        else if(pwdVal.equals(confpwdVal) == false){
             Toast.makeText(createLogin.this, "Your Passwords do not match", Toast.LENGTH_SHORT).show();
+
             }
+
+        else{
+            retVal = true;
+        }
+
+        return retVal;
     }
 
 

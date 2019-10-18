@@ -1,0 +1,56 @@
+class UserAccount
+{
+ 
+}
+
+
+
+class Administrator
+{
+    isA UserAccount;
+  * -- * Service;
+}
+
+class Employee
+{
+  isA UserAccount;
+  * -- * WalkInClinicProfile;
+}
+
+class Patient
+{
+  isA UserAccount;
+}
+
+class Service
+{
+  * -- * WalkInClinic;
+  * -- * WalkInClinicProfile;
+}
+
+class WalkInClinic
+{
+  * -- * WalkInClinicProfile;
+}
+
+class WalkInClinicProfile
+{
+  String workingHours;
+  String address;
+    
+}
+
+class PatientAccount
+{
+  * -- * Patient;
+}
+
+class Rate
+{
+  * -- * Service;
+}
+
+class Appointment
+{
+  * -- * PatientAccount;
+}

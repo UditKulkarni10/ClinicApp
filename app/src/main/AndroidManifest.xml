@@ -5,16 +5,17 @@
 
     <application
         android:allowBackup="true"
+        android:appComponentFactory="whateverString"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:appComponentFactory"
-        android:appComponentFactory="whateverString"
-        tools:overrideLibrary="com.google.firebase.auth">
-
-        <activity android:name=".Login"></activity>
+        tools:overrideLibrary="com.google.firebase.auth"
+        tools:replace="android:appComponentFactory">
+        <activity android:name=".WelcomePage"></activity>
+        <activity android:name=".createLogin" />
+        <activity android:name=".Login" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

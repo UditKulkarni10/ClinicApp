@@ -1,9 +1,11 @@
-# Forward Inc.
+# Stack Inc.
 
 ## Team Members
 
 | Name | Student Number |
 | --- | --- |
-| Andrew Forward | 1484511  |
-| Andrew Forward | 1929204  |
-| Ayana Nurse | 2128439 |
+| Athavan Jeevakumar | 1484511  |
+| Justin Weiner | 1929204  |
+| Radhika Takwale | 2128439 |
+| Jonathan Lam | 300052112 |
+| Udit Kulkarni | 300053077 |

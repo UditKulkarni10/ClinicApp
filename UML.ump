@@ -1,0 +1,52 @@
+class Login
+{
+  * -- * User;
+  * -- * WelcomePage;
+  Boolean validate;
+}
+
+class WelcomePage
+{
+  User user;
+}
+
+class CreateLogin
+{
+  * -- * User;
+}
+
+class User
+{
+ String name;
+  String username;
+  String role;
+  String lastName;
+   
+}
+//$?[End_of_model]$?
+
+namespace -;
+
+
+class Login
+{
+  position 481 292 109 41;
+  position.association Login__User 0,21 143,33;
+  position.association Login__WelcomePage 140,25 0,19;
+}
+
+class WelcomePage
+{
+  position 759 277 109 41;
+}
+
+class CreateLogin
+{
+  position 18 312 109 41;
+  position.association CreateLogin__User 102,0 0,57;
+}
+
+class User
+{
+  position 228 239 143 109;
+}

@@ -33,34 +33,38 @@ public class WelcomePage extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
         mDatabase= FirebaseDatabase.getInstance().getReference();
+        //welcomeText.setText("");
         setWelcomeText();
 
     }
 
-    public void setWelcomeText(){
-        //Case where if there is no user logged in for some reason
-        if(mUser==null){
-            finish();
-            startActivity(new Intent(this,Login.class));
+    public void setWelcomeText() {
+        if (Login.getIsAdmin()) {
+            welcomeText.setText("Welcome admin, you are logged in as admin!!");
+        } else {
+            //Case where if there is no user logged in for some reason
+            if (mUser == null) {
+                finish();
+                startActivity(new Intent(this, Login.class));
+            } else {
+                mDatabase.child("Users").child(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+
+                        name = user.getName();
+                        role = user.getRole();
+                        username = user.getUsername();
+                        welcomeText.setText("Welcome " + name + ", you are logged in as " + role + "!");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        //this auto generates not sure what to put here
+                    }
+                });
+            }
+
         }
-        else{
-            mDatabase.child("Users").child(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    User user= dataSnapshot.getValue(User.class);
-
-                    name= user.getName();
-                    role= user.getRole();
-                    username=user.getUsername();
-                    welcomeText.setText("Welcome "+name+", you are logged in as "+role+"!");
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    //this auto generates not sure what to put here
-                }
-            });
-        }
-
     }
 }

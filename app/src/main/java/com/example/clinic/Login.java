@@ -25,6 +25,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private DatabaseReference mDatabase;
+    private static boolean isAdmin;
     
 
     @Override
@@ -33,10 +34,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_login);
         loginBtn = findViewById(R.id.loginBtn);
         createAcc = (Button) findViewById(R.id.createAcc);
+        isAdmin=false;
         mAuth = FirebaseAuth.getInstance();
         setUpUIViews();
 
 
+    }
+    public static boolean getIsAdmin(){
+        return isAdmin;
     }
     @Override
     public void onClick(View view)
@@ -49,7 +54,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     if(username.isEmpty() || password.isEmpty()){
                         Toast.makeText(this,"Please enter username or password", Toast.LENGTH_SHORT).show();
                     }
+                    else if(username.equals("admin")&& password.equals("5T5ptQ")){
+                        isAdmin=true;
+                        Toast.makeText(Login.this,"Admin Mode",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Login.this, WelcomePage.class));
+                    }
                     else{
+                        isAdmin=false;
                         mAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {

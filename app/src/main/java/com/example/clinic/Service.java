@@ -4,7 +4,10 @@ public class Service {
 
     private String name;
     private String role;
-
+    public Service(){
+        //Once again, snapshots form firebase need a no argument constructor
+        //For some dumb reason idk anymore
+    }
     public Service(String name, String role){
         this.name=name;
         this.role=role;

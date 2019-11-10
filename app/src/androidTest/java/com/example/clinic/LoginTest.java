@@ -28,10 +28,19 @@ public class LoginTest {
     public ActivityTestRule<Login> myActivityTestRule = new ActivityTestRule<>(Login.class);
     @Test
 
-    public void testActivity() throws Exception{
-        onView(withId(R.id.userEmail)).perform(typeText("email@email.com"));
-        onView(withId(R.id.userPassword)).perform(typeText("hello12"));
+    public void tesLoginFail() throws Exception{
+        onView(withId(R.id.userEmail)).perform(typeText("email@email.com"), closeSoftKeyboard());
+        onView(withId(R.id.userPassword)).perform(typeText("hello12"), closeSoftKeyboard());
         onView(withId(R.id.loginBtn)).perform(click());
+        onView(withText("Authentication Failed")).inRoot(new ToastMatcher()).check(matches(withText("Authentication Failed")));
+
+    }
+    @Test
+    public void testLoginAdmin() throws Exception{
+        onView(withId(R.id.userEmail)).perform(typeText("admin"), closeSoftKeyboard());
+        onView(withId(R.id.userPassword)).perform(typeText("5T5ptQ"), closeSoftKeyboard());
+        onView(withId(R.id.loginBtn)).perform(click());
+        onView(withText("Admin Mode")).inRoot(new ToastMatcher()).check(matches(withText("Admin Mode")));
     }
 
 

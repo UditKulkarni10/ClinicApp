@@ -13,7 +13,9 @@
         android:theme="@style/AppTheme"
         tools:overrideLibrary="com.google.firebase.auth"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".WelcomePage"></activity>
+        <activity android:name=".AccountsManagement"></activity>
+        <activity android:name=".AdminControlPanel" />
+        <activity android:name=".WelcomePage" />
         <activity android:name=".createLogin" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity">
@@ -23,10 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.example.clinic.Services"/>
-        <activity
-            android:name="com.example.clinic.ServiceInfo"/>
+        <activity android:name=".Services" />
+        <activity android:name=".ServiceInfo" />
     </application>
 
 </manifest>

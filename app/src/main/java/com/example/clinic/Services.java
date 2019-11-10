@@ -1,42 +1,126 @@
 package com.example.clinic;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.SparseBooleanArray;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class Services extends AppCompatActivity {
 
-    private ArrayList<String> serviceList;
-    private ArrayAdapter<String> adapter;
-    private EditText addText;
-    private Button addBtn;
+    private ArrayList<Service> serviceList;
+    private ArrayAdapter<Service> adapter;
+    //private EditText addText;
+    //private Button addBtn;
     private ListView list;
+    private DatabaseReference mDatabase;
+    private EditText serviceName,serviceRole;
+   //private String service;
 
-    private String service;
 
-
-
-    private ImageButton addBtnImg;
+    //private ImageButton addBtnImg;
 
 
     @Override
-   protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.services);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        serviceName = findViewById(R.id.serviceNameSetText);
+        serviceRole = findViewById(R.id.serviceRoleSetText);
+    }
+    /*
+    private class ServiceListAdapter extends ArrayAdapter<Service>{
+        private int layout;
+        public ServiceListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Service> objects) {
+            super(context, resource, objects);
+            layout = resource;
+        }
 
+        @NonNull
+        @Override
+        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent){
+            Services.ServicesViewHolder mainViewHolder=null;
+            if(convertView==null){
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                convertView = inflater.inflate(layout,parent,false);
+            }
+            Services.ServicesViewHolder viewHolder= new Services.ServicesViewHolder();
+            viewHolder.deleteButton = convertView.findViewById(R.id.serviceDeleteBtn);
+            viewHolder.editButton = convertView.findViewById(R.id.serviceEditBtn);
+            viewHolder.name = convertView.findViewById(R.id.serviceName);
+            viewHolder.role = convertView.findViewById(R.id.serviceRole);
+            viewHolder.name.setText(getItem(position).getName());
+            viewHolder.role.setText(getItem(position).getRole());
+            viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(AccountsManagement.this,"Implement this",Toast.LENGTH_SHORT).show();
+                    //FirebaseAuth.getInstance().
+
+
+                }
+            });
+            convertView.setTag(viewHolder);
+
+            if(convertView !=null){
+                mainViewHolder = (Services.ServicesViewHolder) convertView.getTag();
+                mainViewHolder.name.setText(getItem(position).getName());
+                mainViewHolder.role.setText(getItem(position).getRole());
+            }
+            return convertView;
+        }
+    }
+
+    public class ServicesViewHolder{
+        TextView name;
+        TextView role;
+        Button deleteButton;
+        Button editButton;
+
+    }
+
+     */
+
+
+    public void onClick(View view){
+        switch(view.getId()){
+            case R.id.addBtn:
+                String name= serviceName.getText().toString();
+                String role= serviceRole.getText().toString();
+                final Service mService = new Service(name,role);
+                mDatabase.child("Services").child(name).setValue(mService).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        Toast.makeText(Services.this, "Service Added!", Toast.LENGTH_SHORT).show();
+                        finish();
+                        startActivity(new Intent(this, Services.class));
+                    }
+                    else{
+                        Toast.makeText(Services.this, "Firebase Database error", Toast.LENGTH_SHORT).show();
+                    }
+
+                });
+        }
+    }
+
+
+
+
+
+
+
+        /*
         list = (ListView) findViewById(R.id.list);
-        addText = (EditText) findViewById(R.id.addText);
+        addText = (EditText) findViewById(R.id.serviceNmaeSetText);
         addBtn = (Button) findViewById(R.id.addBtn);
 
         serviceList = new ArrayList<>();
@@ -108,4 +192,4 @@ public class Services extends AppCompatActivity {
 
 
 
-    }
+}

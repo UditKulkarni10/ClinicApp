@@ -7,23 +7,32 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/addText"
+        android:id="@+id/serviceNameSetText"
         android:layout_width="match_parent"
         android:layout_height="67dp"
         android:ems="10"
-        android:hint="add services"
+        android:hint="Service Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/serviceRoleSetText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Role"
         android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/addBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="Add Services" />
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="479dp"
+        android:layout_height="419dp"
         android:choiceMode="multipleChoice" />
 
 </LinearLayout>

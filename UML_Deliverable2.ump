@@ -1,0 +1,85 @@
+class Login
+{
+  * -- * User;
+  * -- * WelcomePage;
+  Boolean validate;
+  Boolean isAdmin;
+}
+
+class WelcomePage
+{
+  User user;
+}
+
+class CreateLogin
+{
+  * -- * User;
+}
+
+class User
+{
+ String name;
+  String username;
+  String role;
+  String lastName;
+   
+}
+
+
+
+
+class Service
+{
+ String role;
+  String name;
+}
+namespace -;
+
+class AdminControlPanel
+{
+  User AccountManagement;
+  Service Services;
+  1 -- 1 User;
+  1 -- * Service;
+}
+
+
+class Login
+{
+  position 481 292 109 41;
+  position.association Login__User 0,21 143,33;
+  position.association Login__WelcomePage 140,25 0,19;
+}
+
+class WelcomePage
+{
+  position 759 277 109 41;
+}
+
+class CreateLogin
+{
+  position 18 312 109 41;
+  position.association CreateLogin__User 102,0 0,57;
+}
+
+class User
+{
+  position 228 239 143 109;
+}
+
+namespace -;
+
+
+
+class Service
+{
+  position 639 524 109 41;
+}
+
+class AdminControlPanel
+{
+  position 338 539 205 75;
+  position.association Admin__AdminControlPanel 21,0 38,41;
+  position.association AdminControlPanel__User 101,0 104,109;
+  position.association AdminControlPanel__Service 205,41 0,29;
+}//$?[End_of_model]$?

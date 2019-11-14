@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme"
         tools:overrideLibrary="com.google.firebase.auth"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".AccountsManagement"></activity>
+        <activity android:name=".Calendar"></activity>
+        <activity android:name=".AccountsManagement" />
         <activity android:name=".AdminControlPanel" />
         <activity android:name=".WelcomePage" />
         <activity android:name=".createLogin" />

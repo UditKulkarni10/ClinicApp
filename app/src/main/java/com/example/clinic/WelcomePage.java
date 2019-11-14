@@ -35,12 +35,15 @@ public class WelcomePage extends AppCompatActivity {
         mDatabase= FirebaseDatabase.getInstance().getReference();
         //welcomeText.setText("");
         setWelcomeText();
+        //startActivity(new Intent(this, Services.class));
 
     }
 
     public void setWelcomeText() {
         if (Login.getIsAdmin()) {
             welcomeText.setText("Welcome admin, you are logged in as admin!!");
+            finish();
+            startActivity(new Intent(this, AdminControlPanel.class));
         } else {
             //Case where if there is no user logged in for some reason
             if (mUser == null) {

@@ -1,20 +1,19 @@
 package com.example.clinic;
 
 public class User {
-    private String name;
-    private String role;
-    private String username;
-    private String lastName;
+    protected String name;
+    protected String username;
+    protected String lastName;
     public User(){
         //This is for grabbing info back from the database
         //Without this, it gives you some sort of error
         //"User is not a no argument constructor"
     }
-    public User(String name,String lastName, String role, String username){
+    public User(String name,String lastName, String username){
         this.name=name;
         this.username=username;
         this.lastName=lastName;
-        this.role=role;
+        //this.role=role;
     }
 
 
@@ -26,9 +25,11 @@ public class User {
         return lastName;
     }
 
-    public String getRole(){
+    /*public String getRole(){
         return role;
     }
+
+     */
     public String getUsername(){
         return username;
     }

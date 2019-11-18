@@ -13,7 +13,9 @@
         android:theme="@style/AppTheme"
         tools:overrideLibrary="com.google.firebase.auth"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".Calendar"></activity>
+        <activity android:name=".EmployeeProfile"></activity>
+        <activity android:name=".EmployeeMainScreen" />
+        <activity android:name=".Calendar" />
         <activity android:name=".AccountsManagement" />
         <activity android:name=".AdminControlPanel" />
         <activity android:name=".WelcomePage" />

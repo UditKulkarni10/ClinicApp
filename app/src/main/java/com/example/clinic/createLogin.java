@@ -49,28 +49,51 @@ public class createLogin extends AppCompatActivity {
             case R.id.create:
                 if(validate()) {
                     String nameVal = firstName.getText().toString();
-                    String lastNameVal=lastName.getText().toString();
+                    String lastNameVal = lastName.getText().toString();
                     String usernameVal = username.getText().toString();
                     String pwdVal = pwd.getText().toString();
-                    final User mUser=new User(nameVal,lastNameVal,rolVal,usernameVal);
-                    mAuth.createUserWithEmailAndPassword(usernameVal,pwdVal).addOnCompleteListener(this, task -> {
-                        if(task.isSuccessful()){
-                            mDatabase.getReference("Users").child(mAuth.getCurrentUser().getUid()).setValue(mUser).addOnCompleteListener(task1 -> {
-                                if(task.isSuccessful()){
-                                    Toast.makeText(createLogin.this, "Account Created!", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                    startActivity(new Intent(this, Login.class));
-                                }
-                                else{
-                                    Toast.makeText(createLogin.this, "Firebase Database error", Toast.LENGTH_SHORT).show();
-                                }
+                    if (rolVal.equals("employee")) {
+                        final Employee mEmployee = new Employee(nameVal, lastNameVal, usernameVal);
+                        mAuth.createUserWithEmailAndPassword(usernameVal, pwdVal).addOnCompleteListener(this, task -> {
+                            if (task.isSuccessful()) {
+                                mDatabase.getReference("Users").child(mAuth.getCurrentUser().getUid()).setValue(mEmployee).addOnCompleteListener(task1 -> {
+                                    if (task.isSuccessful()) {
+                                        mDatabase.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("role").setValue(rolVal);
 
-                            });
-                        } else{
-                            Toast.makeText(createLogin.this, "Firebase Authentication Error", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                                        Toast.makeText(createLogin.this, "Account Created!", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                        startActivity(new Intent(this, Login.class));
+                                    } else {
+                                        Toast.makeText(createLogin.this, "Firebase Database error", Toast.LENGTH_SHORT).show();
+                                    }
 
+                                });
+                            } else {
+                                Toast.makeText(createLogin.this, "Firebase Authentication Error", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                    else if(rolVal.equals("patient")){
+                        final Patient mPatient = new Patient(nameVal, lastNameVal, usernameVal);
+                        mAuth.createUserWithEmailAndPassword(usernameVal, pwdVal).addOnCompleteListener(this, task -> {
+                            if (task.isSuccessful()) {
+                                mDatabase.getReference("Users").child(mAuth.getCurrentUser().getUid()).setValue(mPatient).addOnCompleteListener(task1 -> {
+                                    if (task.isSuccessful()) {
+                                        mDatabase.getReference("Users").child(mAuth.getCurrentUser().getUid()).child("role").setValue(rolVal);
+                                        Toast.makeText(createLogin.this, "Account Created!", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                        startActivity(new Intent(this, Login.class));
+                                    } else {
+                                        Toast.makeText(createLogin.this, "Firebase Database error", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                });
+                            } else {
+                                Toast.makeText(createLogin.this, "Firebase Authentication Error", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
         }
     }

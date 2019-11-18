@@ -58,7 +58,13 @@ public class AccountsManagement extends AppCompatActivity {
             viewHolder.name = convertView.findViewById(R.id.accNameTxt);
             viewHolder.role = convertView.findViewById(R.id.accRoleTxt);
             viewHolder.name.setText(getItem(position).getName()+" "+getItem(position).getLastName());
-            viewHolder.role.setText(getItem(position).getRole());
+            if(getItem(position) instanceof Patient){
+                viewHolder.role.setText("Patient");
+            }
+            else if(getItem(position) instanceof Employee){
+                viewHolder.role.setText("Employee");
+            }
+
             viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -73,7 +79,12 @@ public class AccountsManagement extends AppCompatActivity {
             if(convertView !=null){
                 mainViewHolder = (AccViewHolder) convertView.getTag();
                 mainViewHolder.name.setText(getItem(position).getName()+" "+getItem(position).getLastName());
-                mainViewHolder.role.setText(getItem(position).getRole());
+                if(getItem(position) instanceof Patient) {
+                    mainViewHolder.role.setText("Patient");
+                }
+                else if(getItem(position)instanceof Employee){
+                    mainViewHolder.role.setText("Employee");
+                }
             }
             return convertView;
         }
@@ -94,9 +105,20 @@ public class AccountsManagement extends AppCompatActivity {
 
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    User user = postSnapshot.getValue(User.class);
+                    //Toast.makeText(AccountsManagement.this,"Role: "+postSnapshot.child("role"),Toast.LENGTH_SHORT).show();
+                    if(postSnapshot.child("role").getValue().equals("patient")){
+                        Patient patient = postSnapshot.getValue(Patient.class);
+                        //Toast.makeText(AccountsManagement.this,"Added: "+patient.getUsername(),Toast.LENGTH_SHORT).show();
+                        userList.add(patient);
+                    }
+                    else if(postSnapshot.child("role").getValue().equals("employee")){
+                        Employee employee = postSnapshot.getValue(Employee.class);
+                        //Toast.makeText(AccountsManagement.this,"Added: "+employee.getUsername(),Toast.LENGTH_SHORT).show();
+                        userList.add(employee);
+                    }
+                    //User user = postSnapshot.getValue(User.class);
                     //Toast.makeText(AccountsManagement.this,"Added: "+user.getUsername(),Toast.LENGTH_SHORT).show();
-                    userList.add(user);
+                    //userList.add(user);
                 }
                 accountList.setAdapter(new AccListAdapter(AccountsManagement.this,R.layout.account_list_layout,userList));
 

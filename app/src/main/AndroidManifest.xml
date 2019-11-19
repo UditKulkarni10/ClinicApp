@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme"
         tools:overrideLibrary="com.google.firebase.auth"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".EmployeeProfile"></activity>
+        <activity android:name=".addAvaliability"></activity>
+        <activity android:name=".EmployeeProfile" />
         <activity android:name=".EmployeeMainScreen" />
         <activity android:name=".Calendar" />
         <activity android:name=".AccountsManagement" />

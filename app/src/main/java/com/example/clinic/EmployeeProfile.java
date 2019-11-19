@@ -3,6 +3,7 @@ package com.example.clinic;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,6 +26,13 @@ public class EmployeeProfile extends AppCompatActivity {
     private Button updateAddress;
     private Button editPhone;
     private Button updatePhone;
+    private Button updatePayment;
+    private CheckBox cash;
+    private CheckBox cheque;
+    private CheckBox creditCard;
+    private CheckBox insurance;
+    private CheckBox bitcoin;
+    private CheckBox giftCard;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private DatabaseReference mDatabase;
@@ -36,15 +44,16 @@ public class EmployeeProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_profile);
-        editName = findViewById(R.id.clinicNameEditBtn);
         updateName = findViewById(R.id.clinicNameUpdateBtn);
-        editAddress = findViewById(R.id.addressEditBtn);
         updateAddress = findViewById(R.id.addressUpateBtn);
-        editPhone = findViewById(R.id.phoneNumberEditBtn);
         updatePhone = findViewById(R.id.phoneNumberUpdateBtn);
-        updateName.setVisibility(View.INVISIBLE);
-        updateAddress.setVisibility(View.INVISIBLE);
-        updatePhone.setVisibility(View.INVISIBLE);
+        updatePayment = findViewById(R.id.updatePaymentBtn);
+        cash=findViewById(R.id.cashCheckBox);
+        cheque =findViewById(R.id.creditCardCheckBox);
+        creditCard=findViewById(R.id.creditCardCheckBox);
+        insurance=findViewById(R.id.insuranceCheckBox);
+        bitcoin=findViewById(R.id.bitcoinCheckBox);
+        giftCard=findViewById(R.id.itunesCheckBox);
         mAuth=FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
         mDatabase= FirebaseDatabase.getInstance().getReference();
@@ -95,14 +104,103 @@ public class EmployeeProfile extends AppCompatActivity {
                 }
             });
         }
+
+
+            mDatabase.child("Users").child(mUser.getUid()).child("Accepted Payment Methods").child("Cash").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() !=null){
+                        cash.setChecked((boolean) dataSnapshot.getValue());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+            mDatabase.child("Users").child(mUser.getUid()).child("Accepted Payment Methods").child("Cheque").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        cheque.setChecked((boolean) dataSnapshot.getValue());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+            mDatabase.child("Users").child(mUser.getUid()).child("Accepted Payment Methods").child("Credit Card").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        creditCard.setChecked((boolean) dataSnapshot.getValue());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+            mDatabase.child("Users").child(mUser.getUid()).child("Accepted Payment Methods").child("Insurance").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        insurance.setChecked((boolean) dataSnapshot.getValue());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+            mDatabase.child("Users").child(mUser.getUid()).child("Accepted Payment Methods").child("Bitcoin").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        bitcoin.setChecked((boolean) dataSnapshot.getValue());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+            mDatabase.child("Users").child(mUser.getUid()).child("Accepted Payment Methods").child("ITunes Gift Cards").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        giftCard.setChecked((boolean) dataSnapshot.getValue());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+
     }
 
     public void onClick(View view){
 
-        if(view.getId()==R.id.clinicNameEditBtn) {
-            editName.setVisibility(View.INVISIBLE);
-            updateName.setVisibility(View.VISIBLE);
-        }
         if(view.getId()==R.id.clinicNameUpdateBtn) {
             if (!clinicName.getText().toString().isEmpty()) {
                 mDatabase.child("Users").child(mUser.getUid()).child("Clinic Name").setValue(clinicName.getText().toString());
@@ -111,10 +209,6 @@ public class EmployeeProfile extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Please fill our the clinic name field", Toast.LENGTH_SHORT).show();
             }
-        }
-        if(view.getId()==R.id.addressEditBtn) {
-            editAddress.setVisibility(View.INVISIBLE);
-            updateAddress.setVisibility(View.VISIBLE);
         }
         if(view.getId()==R.id.addressUpateBtn) {
             if (!address.getText().toString().isEmpty()) {
@@ -125,10 +219,6 @@ public class EmployeeProfile extends AppCompatActivity {
                 Toast.makeText(this, "Please fill our the address field", Toast.LENGTH_SHORT).show();
             }
         }
-        if(view.getId()==R.id.phoneNumberEditBtn) {
-            editPhone.setVisibility(View.INVISIBLE);
-            updatePhone.setVisibility(View.VISIBLE);
-        }
         if(view.getId()==R.id.phoneNumberUpdateBtn) {
             if (!phoneNumber.getText().toString().isEmpty()) {
                 mDatabase.child("Users").child(mUser.getUid()).child("Phone Number").setValue(phoneNumber.getText().toString());
@@ -136,6 +226,22 @@ public class EmployeeProfile extends AppCompatActivity {
                 recreate();
             } else {
                 Toast.makeText(this, "Please fill our the phone number field", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if(view.getId()==R.id.updatePaymentBtn){
+            if(!cash.isChecked()&&!cheque.isChecked()&&!creditCard.isChecked()&&!insurance.isChecked()&&!bitcoin.isChecked()&&!giftCard.isChecked()){
+                Toast.makeText(this, "Please select a payment method", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                mDatabase.child("Users").child(mUser.getUid()).child("Accepted Payment Methods").child("Cash").setValue(cash.isChecked());
+                mDatabase.child("Users").child(mUser.getUid()).child("Accepted Payment Methods").child("Cheque").setValue(cheque.isChecked());
+                mDatabase.child("Users").child(mUser.getUid()).child("Accepted Payment Methods").child("Credit Card").setValue(creditCard.isChecked());
+                mDatabase.child("Users").child(mUser.getUid()).child("Accepted Payment Methods").child("Insurance").setValue(insurance.isChecked());
+                mDatabase.child("Users").child(mUser.getUid()).child("Accepted Payment Methods").child("Bitcoin").setValue(bitcoin.isChecked());
+                mDatabase.child("Users").child(mUser.getUid()).child("Accepted Payment Methods").child("ITunes Gift Cards").setValue(giftCard.isChecked());
+                Toast.makeText(this, "Payment Methods Updated", Toast.LENGTH_SHORT).show();
+                recreate();
             }
         }
 

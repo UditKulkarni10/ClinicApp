@@ -146,9 +146,5 @@ public class EmployeeMainScreen extends AppCompatActivity {
         }
     }
 
-    public void deleteService(){
-
-
-    }
 
 }

@@ -6,6 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".EmployeeProfile">
 
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="223dp"
+        android:text="Phone Number"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="156dp"
+        android:text="Address"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp" />
+
     <EditText
         android:id="@+id/clinicNameText"
         android:layout_width="wrap_content"
@@ -25,39 +47,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="177dp"
         android:ems="10"
         android:hint="Address"
-        android:inputType="textPersonName"
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentLeft="true" />
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/phoneNumberText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="229dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="314dp"
         android:ems="10"
         android:hint="Phone Number"
-        android:inputType="textPersonName"
-        android:layout_alignParentLeft="true" />
-
-    <Button
-        android:id="@+id/clinicNameEditBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="101dp"
-        android:layout_marginEnd="88dp"
-        android:layout_marginRight="88dp"
-        android:onClick="onClick"
-        android:text="Edit" />
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/clinicNameUpdateBtn"
@@ -65,24 +76,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="101dp"
-        android:onClick="onClick"
-        android:text="Update"
-        tools:visibility="invisible"
-        android:layout_alignParentRight="true" />
-
-    <Button
-        android:id="@+id/addressEditBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="218dp"
-        android:layout_marginEnd="88dp"
-        android:layout_marginRight="88dp"
+        android:layout_marginTop="103dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
         android:onClick="onClick"
-        android:text="Edit" />
+        android:text="Update" />
 
     <Button
         android:id="@+id/addressUpateBtn"
@@ -90,39 +89,26 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="219dp"
-        android:layout_marginEnd="-3dp"
-        android:onClick="onClick"
-        android:text="Update"
-        tools:visibility="invisible"
-        android:layout_marginRight="-3dp"
-        android:layout_alignParentRight="true" />
-
-    <Button
-        android:id="@+id/phoneNumberEditBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="86dp"
-        android:layout_marginRight="86dp"
-        android:layout_marginBottom="226dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="172dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
         android:onClick="onClick"
-        android:text="Edit" />
+        android:text="Update" />
 
     <Button
         android:id="@+id/phoneNumberUpdateBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="226dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginBottom="315dp"
         android:onClick="onClick"
-        android:text="Update"
-        tools:visibility="invisible"
-        android:layout_alignParentRight="true" />
+        android:text="Update" />
 
     <TextView
         android:id="@+id/profileText"
@@ -133,4 +119,113 @@
         android:layout_marginTop="35dp"
         android:text="Profile"
         android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="74dp"
+        android:text="Name" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="267dp"
+        android:text="Accepted Payments" />
+
+    <CheckBox
+        android:id="@+id/cashCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="206dp"
+        android:text="Cash" />
+
+    <CheckBox
+        android:id="@+id/chequeCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="122dp"
+        android:layout_marginLeft="122dp"
+        android:layout_marginBottom="206dp"
+        android:text="Cheque" />
+
+    <CheckBox
+        android:id="@+id/creditCardCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="74dp"
+        android:layout_marginRight="74dp"
+        android:layout_marginBottom="207dp"
+        android:text="Credit Card" />
+
+    <CheckBox
+        android:id="@+id/insuranceCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginBottom="160dp"
+        android:text="Insurance" />
+
+    <CheckBox
+        android:id="@+id/bitcoinCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="121dp"
+        android:layout_marginLeft="121dp"
+        android:layout_marginBottom="162dp"
+        android:text="Bitcoin" />
+
+    <CheckBox
+        android:id="@+id/itunesCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="34dp"
+        android:layout_marginRight="34dp"
+        android:layout_marginBottom="162dp"
+        android:text="ITunes Gift Cards" />
+
+    <Button
+        android:id="@+id/updatePaymentBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="89dp"
+        android:layout_marginLeft="89dp"
+        android:layout_marginBottom="87dp"
+        android:onClick="onClick"
+        android:text="Update Payment Methods" />
+
 </RelativeLayout>

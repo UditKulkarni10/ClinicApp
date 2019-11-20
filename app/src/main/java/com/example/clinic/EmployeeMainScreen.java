@@ -141,6 +141,7 @@ public class EmployeeMainScreen extends AppCompatActivity {
                 startActivity(new Intent(this, EmployeeAddServices.class));
                 break;
             case R.id.viewWorkHoursBtn:
+                startActivity(new Intent(this, addAvaliability.class));
                 break;
 
         }

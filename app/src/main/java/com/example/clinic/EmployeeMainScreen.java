@@ -62,7 +62,26 @@ public class EmployeeMainScreen extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Service service = postSnapshot.getValue(Service.class);
                     //Toast.makeText(EmployeeMainScreen.this,"Added: "+service.getName(),Toast.LENGTH_SHORT).show();
-                    serviceList.add(service);
+                    DatabaseReference serviceReference=mFirebaseInstance.getReference().child("Services").child(service.getName());
+                    ValueEventListener eventListener = new ValueEventListener() {
+                        @Override
+                        //This checks to see if the service was deleted by the admin or not
+                        //If it was, then the service gets deleted from the employee's offered services as well
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                serviceList.add(service);
+                            }
+                            else{
+                                mDatabase.child("Users").child(mUser.getUid()).child("Services").child(service.getName()).removeValue();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    };
+                    serviceReference.addListenerForSingleValueEvent(eventListener);
                 }
                 list.setAdapter(new EmployeeMainScreen.ServiceListAdapter(EmployeeMainScreen.this, R.layout.employee_main_screen_service_layout, serviceList));
 

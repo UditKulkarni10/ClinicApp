@@ -53,12 +53,29 @@ public class WelcomePage extends AppCompatActivity {
                 mDatabase.child("Users").child(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        User user = dataSnapshot.getValue(User.class);
+                        if(dataSnapshot.child("role").getValue().equals("patient")){
+                            Patient patient = dataSnapshot.getValue(Patient.class);
+                            name = patient.getName();
+                            role = patient.getRole();
+                            username = patient.getUsername();
+                            welcomeText.setText("Welcome " + name + ", you are logged in as " + role + "!");
+                            finish();
+                            startActivity(new Intent(WelcomePage.this, Services.class));
+                            //finish();
+                        }
+                        else if(dataSnapshot.child("role").getValue().equals("employee")){
+                            Employee employee = dataSnapshot.getValue(Employee.class);
+                            name = employee.getName();
+                            role = employee.getRole();
+                            username = employee.getUsername();
+                            welcomeText.setText("Welcome " + name + ", you are logged in as " + role + "!");
+                            finish();
+                            startActivity(new Intent(WelcomePage.this, EmployeeMainScreen.class));
+                            //finish();
+                        }
+                        //User user = dataSnapshot.getValue(User.class);
 
-                        name = user.getName();
-                        role = user.getRole();
-                        username = user.getUsername();
-                        welcomeText.setText("Welcome " + name + ", you are logged in as " + role + "!");
+
                     }
 
                     @Override

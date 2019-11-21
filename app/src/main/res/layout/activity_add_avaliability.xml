@@ -35,14 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="27dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="467dp"
-            android:layout_gravity="end">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
@@ -50,9 +42,15 @@
             android:layout_gravity="right"
             android:clickable="true"
             android:focusable="auto"
+            android:onClick="onClick"
             android:visibility="visible"
             app:srcCompat="@drawable/add"
             tools:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -28,6 +34,7 @@ public class addAvaliability extends AppCompatActivity {
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         myAdapter = new Adapter(this, getMyList());
+        getMyList();
 
     }
 
@@ -45,6 +52,9 @@ public class addAvaliability extends AppCompatActivity {
         return models;
     }
 
+
+
+
     public void addModel(String startTime, String endTime, String date){
         Model m = new Model();
         m.setTitle(startTime+endTime);
@@ -53,8 +63,15 @@ public class addAvaliability extends AppCompatActivity {
     }
 
     public void onClick(View view){
-        Intent  i = new Intent(this, Calendar.class);
-        startActivityForResult(i, CALENDAR_REQUEST_CODE);
+        switch (view.getId()) {
+            case R.id.floatingActionButton:
+
+//                startActivity(new Intent(this, Calendar.class));
+//                break;
+
+                Intent i = new Intent(this, Calendar.class);
+                startActivityForResult(i, CALENDAR_REQUEST_CODE);
+        }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -74,6 +91,5 @@ public class addAvaliability extends AppCompatActivity {
 
         }
     }
-
 
 }

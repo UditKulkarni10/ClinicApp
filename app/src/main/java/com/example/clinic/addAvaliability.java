@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -15,54 +18,35 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class addAvaliability extends AppCompatActivity {
 
-    RecyclerView myRecyclerView;
-    Adapter myAdapter;
-
+    ListView listviewavailibilites;
     ArrayList<Model> models = new ArrayList<>();
+
+    //    ArrayList<Model> models;
     private static final int CALENDAR_REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_avaliability);
 
-        myRecyclerView = findViewById(R.id.recyclerView);
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        listviewavailibilites = (ListView) findViewById(R.id.listviewavailibilitiescard);
 
-        myAdapter = new Adapter(this, getMyList());
-        getMyList();
+//        ArrayList<Model> models = new ArrayList<>();
+//        models = Model.initialModels();
+
+        ModelAdapter arrayAdapterModels = new ModelAdapter(this, android.R.layout.simple_list_item_1, models);
+
+        listviewavailibilites.setAdapter(arrayAdapterModels);
 
     }
 
-    public ArrayList<Model> getMyList(){
-        Model s = new Model();
-        s.setTitle("Coffee");
-        s.setDescription("9am - 10pm");
-        models.add(s);
-
-        Model d = new Model();
-        d.setTitle("Bone Breaking");
-        d.setDescription("10am-3pm");
-        models.add(d);
-
-        return models;
-    }
-
-
-
-
-    public void addModel(String startTime, String endTime, String date){
-        Model m = new Model();
-        m.setTitle(startTime+endTime);
-        m.setDescription(date);
-        models.add(m);
-    }
-
-    public void onClick(View view){
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.floatingActionButton:
 
@@ -73,23 +57,31 @@ public class addAvaliability extends AppCompatActivity {
                 startActivityForResult(i, CALENDAR_REQUEST_CODE);
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CALENDAR_REQUEST_CODE){
-            if(resultCode == RESULT_OK){
+        if (requestCode == CALENDAR_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
                 //Gets this data from the Calender activity class
                 String date = data.getStringExtra("date");
                 String startTime = data.getStringExtra("startTime");
                 String endTime = data.getStringExtra("endTime");
 
-                addModel(startTime, endTime, date);
-                myAdapter = new Adapter(this, getMyList());
+
+                Model newModel = new Model();
+                newModel.setTitle(date);
+                newModel.setDescription(startTime + " - " + endTime);
+//                addModel(startTime, endTime, date);
+                models.add(newModel);
+                //               ModelAdapter adapter = new ModelAdapter(models);
+                ModelAdapter arrayAdapterModels = new ModelAdapter(this, android.R.layout.simple_list_item_1, models);
+                listviewavailibilites.setAdapter(arrayAdapterModels);
+
             }
 
 
         }
     }
-
 }

@@ -1,16 +1,21 @@
 package com.example.clinic;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Calendar extends AppCompatActivity {
 
@@ -19,6 +24,7 @@ public class Calendar extends AppCompatActivity {
     Button addTime;
     String text;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,23 +36,41 @@ public class Calendar extends AppCompatActivity {
 
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                text = i + "/" + i1 + "/" + i2; // This is the date for the calender that is stored
+                text = i + "-" + (i1+1) + "-" + i2; // This is the date for the calender that is stored
             }
         });
         addTime = (Button) findViewById(R.id.addTime);
         addTime.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
+                //I i don't define them as null then the catch gives me a syntax error
+                LocalTime startTimeFinal;
+                LocalTime endTimeFinal;
 
                 //Gathers user input and sends it to the addAvaliability class
                 String startTimeToPass = startTime.getText().toString();
                 String endTimeToPass = endTime.getText().toString();
-                Intent i = new Intent();
-                i.putExtra("startTime", startTimeToPass);
-                i.putExtra("endTime", endTimeToPass);
-                i.putExtra("date", text);
-                setResult(RESULT_OK, i);
-                finish();
+                if(text==null){
+                    Toast.makeText(Calendar.this,"Please select a date",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    try{
+                        DateTimeFormatter parser = DateTimeFormatter.ofPattern("HH:mm");
+                        startTimeFinal = LocalTime.parse(startTimeToPass,parser);
+                        endTimeFinal = LocalTime.parse(endTimeToPass,parser);
+                        Intent i = new Intent();
+                        i.putExtra("startTime", startTimeFinal.toString());
+                        i.putExtra("endTime", endTimeFinal.toString());
+                        i.putExtra("date", text);
+                        setResult(RESULT_OK, i);
+                        finish();
+                    } catch(DateTimeParseException e){
+                        Toast.makeText(Calendar.this,"Invalid Time",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
             }
         });
     }

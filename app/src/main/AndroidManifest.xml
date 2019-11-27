@@ -13,10 +13,11 @@
         android:theme="@style/AppTheme"
         tools:overrideLibrary="com.google.firebase.auth"
         tools:replace="android:appComponentFactory">
-
+        <activity android:name=".BookAppointment"></activity>
+        <activity android:name=".PatientMainScreen" />
         <activity android:name=".EmployeeProfile" />
-        <activity android:name=".addAvaliability"></activity>
-        <activity android:name=".EmployeeAddServices"></activity>
+        <activity android:name=".addAvaliability" />
+        <activity android:name=".EmployeeAddServices" />
         <activity android:name=".EmployeeMainScreen" />
         <activity android:name=".Calendar" />
         <activity android:name=".AccountsManagement" />

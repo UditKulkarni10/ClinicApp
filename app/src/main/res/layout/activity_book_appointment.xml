@@ -15,19 +15,23 @@
         android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchTextLayout"
             android:layout_width="318dp"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="hint" />
+                android:hint="hint"
+                android:textSize="14dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/searchClinic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:text="@android:string/search_go" />
 
     </LinearLayout>
@@ -41,6 +45,7 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="47dp"
+        android:onClick="onRadioButtonClicked"
         android:orientation="horizontal">
 
 
@@ -48,18 +53,22 @@
             android:id="@+id/addressChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
+            android:onClick="onRadioButtonClicked"
             android:text="Address" />
 
         <RadioButton
             android:id="@+id/workHourChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
             android:text="Work Hours" />
 
         <RadioButton
             android:id="@+id/serviceChoice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
             android:text="Services Offered" />
     </RadioGroup>
 

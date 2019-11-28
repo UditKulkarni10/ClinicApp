@@ -60,7 +60,7 @@ public class WelcomePage extends AppCompatActivity {
                             username = patient.getUsername();
                             welcomeText.setText("Welcome " + name + ", you are logged in as " + role + "!");
                             finish();
-                            startActivity(new Intent(WelcomePage.this, Services.class));
+                            startActivity(new Intent(WelcomePage.this, PatientMainScreen.class));
                             //finish();
                         }
                         else if(dataSnapshot.child("role").getValue().equals("employee")){

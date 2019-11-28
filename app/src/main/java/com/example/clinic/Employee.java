@@ -10,6 +10,7 @@ public class Employee extends User {
     private String phoneNumber;
     private String clinicName;
     private ArrayList<String> acceptedPayments;
+    private ArrayList<String> workHours;
 
     public Employee() {
         //super();
@@ -59,6 +60,10 @@ public class Employee extends User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public ArrayList<String> getWorkHours() {
+        return workHours;
     }
 }
 

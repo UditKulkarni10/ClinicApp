@@ -13,7 +13,9 @@
         android:theme="@style/AppTheme"
         tools:overrideLibrary="com.google.firebase.auth"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".BookAppointment"></activity>
+        <activity android:name=".BookWorkHourChoice"></activity>
+        <activity android:name=".BookServiceChoice" />
+        <activity android:name=".BookAppointment" />
         <activity android:name=".PatientMainScreen" />
         <activity android:name=".EmployeeProfile" />
         <activity android:name=".addAvaliability" />

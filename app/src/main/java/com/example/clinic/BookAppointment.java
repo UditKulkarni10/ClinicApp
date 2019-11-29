@@ -1,6 +1,7 @@
 package com.example.clinic;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ public class BookAppointment extends AppCompatActivity {
     private ListView bookingOptions;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,7 @@ public class BookAppointment extends AppCompatActivity {
         serviceBtn=findViewById(R.id.serviceChoice);
         addressBtn=findViewById(R.id.addressChoice);
         workHoursBtn=findViewById(R.id.workHourChoice);
+
 
     }
 
@@ -64,7 +67,7 @@ public class BookAppointment extends AppCompatActivity {
                         //Toast.makeText(AccountsManagement.this,"Role: "+postSnapshot.child("role"),Toast.LENGTH_SHORT).show();
                         if (postSnapshot.child("Address").getValue() != null) {
                         //    Toast.makeText(BookAppointment.this,postSnapshot.child("Address").getValue().toString(),Toast.LENGTH_SHORT).show();
-                            if (postSnapshot.child("Address").getValue().toString().contains(search) ) {
+                            if (postSnapshot.child("Address").getValue().toString().toLowerCase().contains(search) ) {
 
                                 Clinic clinic = new Clinic(postSnapshot.getValue().toString(), postSnapshot.child("Clinic Name").getValue().toString(), postSnapshot.child("Address").getValue().toString(), postSnapshot.child("Phone Number").getValue().toString());
                                // Toast.makeText(BookAppointment.this,"Clinic found",Toast.LENGTH_SHORT).show();
@@ -109,10 +112,10 @@ public class BookAppointment extends AppCompatActivity {
                                     for(DataSnapshot postSnapshot2: dataSnapshot2.getChildren()){
                                         //Toast.makeText(BookAppointment.this,postSnapshot2.child("name").getValue().toString(),Toast.LENGTH_SHORT).show();
                                         if(postSnapshot2.child("name").getValue()!=null) {
-                                            //Toast.makeText(BookAppointment.this,"Service: "+postSnapshot2.child("name").getValue().toString(),Toast.LENGTH_SHORT).show();
-                                            if (postSnapshot2.child("name").getValue().toString().contains(search)) {
+                                           // Toast.makeText(BookAppointment.this,"User "+postSnapshot.getKey(),Toast.LENGTH_SHORT).show();
+                                            if (postSnapshot2.child("name").getValue().toString().toLowerCase().contains(search)) {
                                                 //Toast.makeText(BookAppointment.this,"Adding service",Toast.LENGTH_SHORT).show();
-                                                Clinic clinic = new Clinic(postSnapshot.getValue().toString(), postSnapshot.child("Clinic Name").getValue().toString(), postSnapshot.child("Address").getValue().toString(), postSnapshot.child("Phone Number").getValue().toString());
+                                                Clinic clinic = new Clinic(postSnapshot.getKey(), postSnapshot.child("Clinic Name").getValue().toString(), postSnapshot.child("Address").getValue().toString(), postSnapshot.child("Phone Number").getValue().toString());
                                                 // Toast.makeText(BookAppointment.this,"Clinic found",Toast.LENGTH_SHORT).show();
                                                 clinicChoice.add(clinic);
                                                 bookingOptions.setAdapter(new BookAppointment.AccListAdapter(BookAppointment.this,R.layout.clinic_booking_layout,clinicChoice));
@@ -187,8 +190,10 @@ public class BookAppointment extends AppCompatActivity {
             viewHolder.bookButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast.makeText(AccountsManagement.this,"Implement this",Toast.LENGTH_SHORT).show();
-                    //FirebaseAuth.getInstance().
+                    //Toast.makeText(BookAppointment.this,"UID: "+getItem(position).getUid(),Toast.LENGTH_SHORT).show();
+                    Intent i =new Intent(BookAppointment.this,BookServiceChoice.class);
+                    i.putExtra("chosenClinic",getItem(position));
+                    startActivity(i);
 
 
                 }

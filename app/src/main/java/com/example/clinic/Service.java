@@ -1,6 +1,8 @@
 package com.example.clinic;
 
-public class Service {
+import java.io.Serializable;
+
+public class Service implements Serializable {
 
     private String name;
     private String role;

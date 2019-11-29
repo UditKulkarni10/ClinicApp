@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -57,12 +58,17 @@ public class Calendar extends AppCompatActivity {
                 else{
                     try{
                         DateTimeFormatter parser = DateTimeFormatter.ofPattern("HH:mm");
+
                         startTimeFinal = LocalTime.parse(startTimeToPass,parser);
                         endTimeFinal = LocalTime.parse(endTimeToPass,parser);
-                        Intent i = new Intent();
+                        String slots= String.valueOf((int)(Duration.between(startTimeFinal,endTimeFinal).toMinutes()/15));
+                        Toast.makeText(Calendar.this,"slots: "+slots,Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(Calendar.this,addAvaliability.class);
                         i.putExtra("startTime", startTimeFinal.toString());
                         i.putExtra("endTime", endTimeFinal.toString());
                         i.putExtra("date", text);
+                        i.putExtra("slots",slots);
+
                         setResult(RESULT_OK, i);
                         finish();
                     } catch(DateTimeParseException e){

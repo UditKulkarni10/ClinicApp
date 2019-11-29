@@ -137,6 +137,7 @@ public class addAvaliability extends AppCompatActivity {
     public class WorkHourViewHolder{
         TextView date;
         TextView hours;
+        //TextView slots;
         Button deleteButton;
         Button editButton;
 
@@ -183,14 +184,18 @@ public class addAvaliability extends AppCompatActivity {
         if (requestCode == CALENDAR_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 //Gets this data from the Calender activity class
+                //data=getIntent();
                 String date = data.getStringExtra("date");
                 String startTime = data.getStringExtra("startTime");
                 String endTime = data.getStringExtra("endTime");
                 String newTitle = "Work Hour On "+date+" at "+startTime+" to "+endTime;
 
+                int slots=Integer.valueOf(data.getStringExtra("slots"));
+                //Toast.makeText(this,slots,Toast.LENGTH_SHORT).show();
 
 
-                    WorkHours newModel = new WorkHours(date,startTime,endTime);
+
+                    WorkHours newModel = new WorkHours(date,startTime,endTime,slots,0);
 
                     mDatabase.child("Users").child(mUser.getUid()).child("Work Hours").child(newTitle).setValue(newModel);
                     refreshList();

@@ -79,7 +79,7 @@ public class BookWorkHourChoice extends AppCompatActivity {
             viewHolder.bookButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Appointment appointment = new Appointment(clinic,service,getItem(position));
+                    Appointment appointment = new Appointment(clinic,service,getItem(position),false);
                     mDatabase.child("Users").child(mUser.getUid()).child("Appointments").child("Appointment On "+getItem(position).getDate()).setValue(appointment).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             mDatabase.child("Users").child(mUser.getUid()).child("Appointments").child("Appointment On "+getItem(position).getDate()).child("workHour").child("slots").setValue(appointment.getWorkHour().getSlots()-1);

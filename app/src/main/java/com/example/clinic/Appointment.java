@@ -5,14 +5,16 @@ public class Appointment {
     private Clinic clinic;
     private Service service;
     private WorkHours workHour;
+    private boolean overdue;
 
     public Appointment(){
         //something something firebase needs this
     }
-    public Appointment(Clinic clinic, Service service, WorkHours workHour){
+    public Appointment(Clinic clinic, Service service, WorkHours workHour, boolean overdue){
         this.clinic=clinic;
         this.service=service;
         this.workHour=workHour;
+        this.overdue=overdue;
     }
 
     public Clinic getClinic() {
@@ -32,5 +34,13 @@ public class Appointment {
     }
     public WorkHours getWorkHour(){
         return workHour;
+    }
+
+    public boolean isOverdue() {
+        return overdue;
+    }
+
+    public void setOverdue(boolean overdue) {
+        this.overdue = overdue;
     }
 }

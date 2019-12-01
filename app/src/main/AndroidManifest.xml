@@ -20,8 +20,10 @@
         <activity android:name=".EmployeeProfile" />
         <activity android:name=".addAvaliability" />
         <activity android:name=".EmployeeAddServices" />
+        <activity android:name=".RatingClinic" />
         <activity android:name=".EmployeeMainScreen" />
         <activity android:name=".Calendar" />
+        <activity android:name=".createNewRate" />
         <activity android:name=".AccountsManagement" />
         <activity android:name=".AdminControlPanel" />
         <activity android:name=".WelcomePage" />
@@ -36,6 +38,7 @@
         </activity>
         <activity android:name=".Services" />
         <activity android:name=".ServiceInfo" />
+        <activity android:name=".rateClinic" />
     </application>
 
 </manifest>

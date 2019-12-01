@@ -24,7 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PatientMainScreen extends AppCompatActivity {
     private DatabaseReference mDatabase;
@@ -43,6 +45,7 @@ public class PatientMainScreen extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
         getAppList();
+
     }
 
     private class AppListAdapter extends ArrayAdapter<Appointment> {
@@ -87,20 +90,20 @@ public class PatientMainScreen extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(Services.this,"I'm a delete button",Toast.LENGTH_SHORT).show();
-                    /*
-                    mDatabase.child("Services").child(getItem(position).getName()).removeValue().addOnCompleteListener(task -> {
+
+                    mDatabase.child("Users").child(mUser.getUid()).child("Appointments").child("Appointment On "+getItem(position).getWorkHour().getDate()).removeValue().addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            serviceList.remove(getItem(position));
-                            Toast.makeText(Services.this, "Service Deleted!", Toast.LENGTH_SHORT).show();
+                            appList.remove(getItem(position));
+                            Toast.makeText(PatientMainScreen.this, "Appointment Cancelled!", Toast.LENGTH_SHORT).show();
                             finish();
-                            startActivity(new Intent(Services.this, Services.class));
+                            startActivity(new Intent(PatientMainScreen.this, PatientMainScreen.class));
                         } else {
-                            Toast.makeText(Services.this, "Firebase Database Deletion error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PatientMainScreen.this, "Firebase Database Deletion error", Toast.LENGTH_SHORT).show();
                         }
 
                     });
 
-                     */
+
 
 
                 }
@@ -108,7 +111,9 @@ public class PatientMainScreen extends AppCompatActivity {
             viewHolder.checkInButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    if(getItem(position).isOverdue()){
+                        Toast.makeText(PatientMainScreen.this,"Sorry, you missed your appointment :(",Toast.LENGTH_SHORT).show();
+                    }
 
 
 
@@ -145,9 +150,19 @@ public class PatientMainScreen extends AppCompatActivity {
 
     }
 
+
+
     public void getAppList() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        Date today=new Date();
+        String date= dateFormat.format(today);
+        String time = timeFormat.format(today);
+        //Toast.makeText(this,"Date: "+date,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Time: "+time,Toast.LENGTH_SHORT).show();
         FirebaseDatabase mFirebaseInstance=FirebaseDatabase.getInstance();
         mFirebaseInstance.getReference("Users").child(mUser.getUid()).child("Appointments").getRef().addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -155,6 +170,15 @@ public class PatientMainScreen extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Appointment app = postSnapshot.getValue(Appointment.class);
                     //Toast.makeText(Services.this,"Added: "+service.getName(),Toast.LENGTH_SHORT).show();
+                    if(date.compareTo(app.getWorkHour().getDate())>0){
+                        app.setOverdue(true);
+                        //Toast.makeText(PatientMainScreen.this,"OVERDUE appointment",Toast.LENGTH_SHORT).show();
+                    }
+                    else if(date.compareTo(app.getWorkHour().getDate())==0 && time.compareTo(app.getWorkHour().getEndTime())>1){
+                        app.setOverdue(true);
+                        //Toast.makeText(PatientMainScreen.this,"OVERDUE appointment",Toast.LENGTH_SHORT).show();
+                    }
+
                     appList.add(app);
                 }
                 appListView.setAdapter(new AppListAdapter(PatientMainScreen.this, R.layout.appointment_layout, appList));
@@ -174,7 +198,7 @@ public class PatientMainScreen extends AppCompatActivity {
                 startActivity(new Intent(this, BookAppointment.class));
                 break;
             case R.id.pastAppBtn:
-                //startActivity(new Intent(this, EmployeeAddServices.class));
+                //startActivity(new Intent(this, PastAppointments.class));
                 break;
 
         }

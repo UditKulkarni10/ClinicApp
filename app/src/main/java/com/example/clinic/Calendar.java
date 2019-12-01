@@ -13,10 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 public class Calendar extends AppCompatActivity {
 
@@ -48,7 +50,11 @@ public class Calendar extends AppCompatActivity {
                 //I i don't define them as null then the catch gives me a syntax error
                 LocalTime startTimeFinal;
                 LocalTime endTimeFinal;
-
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+                Date today=new Date();
+                String date= dateFormat.format(today);
+                String time = timeFormat.format(today);
                 //Gathers user input and sends it to the addAvaliability class
                 String startTimeToPass = startTime.getText().toString();
                 String endTimeToPass = endTime.getText().toString();
@@ -61,19 +67,32 @@ public class Calendar extends AppCompatActivity {
 
                         startTimeFinal = LocalTime.parse(startTimeToPass,parser);
                         endTimeFinal = LocalTime.parse(endTimeToPass,parser);
-                        String slots= String.valueOf((int)(Duration.between(startTimeFinal,endTimeFinal).toMinutes()/15));
-                        Toast.makeText(Calendar.this,"slots: "+slots,Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(Calendar.this,addAvaliability.class);
-                        i.putExtra("startTime", startTimeFinal.toString());
-                        i.putExtra("endTime", endTimeFinal.toString());
-                        i.putExtra("date", text);
-                        i.putExtra("slots",slots);
+                        if(startTimeFinal.toString().compareTo(endTimeFinal.toString())>1){
+                            Toast.makeText(Calendar.this,"Start time can't be bigger than end time",Toast.LENGTH_SHORT).show();
+                        }
+                        else if(date.compareTo(text)>0){
+                            Toast.makeText(Calendar.this,"Please make an appointment in the future",Toast.LENGTH_SHORT).show();
+                        }
+                        else if(date.compareTo(text)==0 && startTimeFinal.toString().compareTo(time)<1){
+                            Toast.makeText(Calendar.this,"Please pick a time that hasn't passed",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            String slots= String.valueOf((int)(Duration.between(startTimeFinal,endTimeFinal).toMinutes()/15));
+                            Toast.makeText(Calendar.this,"slots: "+slots,Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(Calendar.this,addAvaliability.class);
+                            i.putExtra("startTime", startTimeFinal.toString());
+                            i.putExtra("endTime", endTimeFinal.toString());
+                            i.putExtra("date", text);
+                            i.putExtra("slots",slots);
 
-                        setResult(RESULT_OK, i);
-                        finish();
+                            setResult(RESULT_OK, i);
+                            finish();
+                        }
+
                     } catch(DateTimeParseException e){
                         Toast.makeText(Calendar.this,"Invalid Time",Toast.LENGTH_SHORT).show();
                     }
+
 
                 }
 

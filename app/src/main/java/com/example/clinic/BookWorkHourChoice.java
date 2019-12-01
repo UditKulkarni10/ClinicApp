@@ -24,7 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BookWorkHourChoice extends AppCompatActivity {
     private ListView workHourListView;
@@ -120,6 +122,11 @@ public class BookWorkHourChoice extends AppCompatActivity {
 
     }
     public void getWorkHourList() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        Date today=new Date();
+        String date= dateFormat.format(today);
+        String time = timeFormat.format(today);
         FirebaseDatabase mFirebaseInstance=FirebaseDatabase.getInstance();
         mFirebaseInstance.getReference("Users").child(clinic.getUid()).child("Work Hours").getRef().addValueEventListener(new ValueEventListener() {
             @Override
@@ -129,7 +136,25 @@ public class BookWorkHourChoice extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     WorkHours workHour = postSnapshot.getValue(WorkHours.class);
                     //Toast.makeText(Services.this,"Added: "+service.getName(),Toast.LENGTH_SHORT).show();
-                    workHourList.add(workHour);
+                    if(date.compareTo(workHour.getDate())>0){
+                        //delete
+                        //Toast.makeText(BookWorkHourChoice.this,"Stale date",Toast.LENGTH_SHORT).show();
+                        mDatabase.child("Users").child(clinic.getUid()).child("Work Hours").child("Work Hour On "+workHour.getDate()+" at "+workHour.getStartTime()+" to "+workHour.getEndTime()).removeValue();
+
+                    }
+                    else if(date.compareTo(workHour.getDate())==0 && time.compareTo(workHour.getEndTime())>1){
+                       //delete
+                        //Toast.makeText(BookWorkHourChoice.this,"Stale time",Toast.LENGTH_SHORT).show();
+                        mDatabase.child("Users").child(clinic.getUid()).child("Work Hours").child("Work Hour On "+workHour.getDate()+" at "+workHour.getStartTime()+" to "+workHour.getEndTime()).removeValue();
+
+                    }
+                    else{
+                        workHourList.add(workHour);
+                    }
+
+                }
+                if(workHourList.size()==0){
+                    Toast.makeText(BookWorkHourChoice.this,"Sorry, there are no time slots for this clinic right now",Toast.LENGTH_SHORT).show();
                 }
                 workHourListView.setAdapter(new BookWorkHourChoice.WorkHoursListAdapter(BookWorkHourChoice.this, R.layout.book_work_hour_layout, workHourList));
 

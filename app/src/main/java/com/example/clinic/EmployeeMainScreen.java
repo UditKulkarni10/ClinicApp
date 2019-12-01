@@ -50,6 +50,7 @@ public class EmployeeMainScreen extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
         getEmployeeServices();
+        list.setAdapter(new EmployeeMainScreen.ServiceListAdapter(EmployeeMainScreen.this, R.layout.employee_main_screen_service_layout, serviceList));
     }
 
     public void getEmployeeServices(){
@@ -164,6 +165,10 @@ public class EmployeeMainScreen extends AppCompatActivity {
                 break;
 
         }
+    }
+
+    public void onBackPressed(){
+        startActivity(new Intent(this, Login.class));
     }
 
 

@@ -95,6 +95,44 @@ public class BookAppointment extends AppCompatActivity {
 
         else if(workHoursBtn.isChecked()){
 
+            mFirebaseInstance.getReference("Users").getRef().addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        //Toast.makeText(AccountsManagement.this,"Role: "+postSnapshot.child("role"),Toast.LENGTH_SHORT).show();
+                        if (postSnapshot.child("Work Hours").getValue() != null) {
+                            //    Toast.makeText(BookAppointment.this,postSnapshot.child("Address").getValue().toString(),Toast.LENGTH_SHORT).show();
+                            if (postSnapshot.child("Work Hours").getValue().toString().toLowerCase().contains(search) ) {
+                                if(postSnapshot.child("Clinic Name").getValue()!=null && postSnapshot.child("Address").getValue()!=null && postSnapshot.child("Phone Number").getValue()!=null){
+                                    Clinic clinic = new Clinic(postSnapshot.getValue().toString(), postSnapshot.child("Clinic Name").getValue().toString(), postSnapshot.child("Address").getValue().toString(), postSnapshot.child("Phone Number").getValue().toString());
+                                    // Toast.makeText(BookAppointment.this,"Clinic found",Toast.LENGTH_SHORT).show();
+                                    clinicChoice.add(clinic);
+                                }
+
+
+                            }
+
+                        }
+                    }
+                    if(clinicChoice.size()==0){
+                        Toast.makeText(BookAppointment.this,"No Results Found",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(BookAppointment.this,"Found "+clinicChoice.size()+" Result(s)",Toast.LENGTH_SHORT).show();
+                    }
+                    bookingOptions.setAdapter(new BookAppointment.AccListAdapter(BookAppointment.this,R.layout.clinic_booking_layout,clinicChoice));
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Toast.makeText(BookAppointment.this,"Something went wrong",Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
         }
         else if (serviceBtn.isChecked()){
             mFirebaseInstance.getReference("Users").getRef().addValueEventListener(new ValueEventListener() {
@@ -162,6 +200,7 @@ public class BookAppointment extends AppCompatActivity {
             //something went wrong toast
         }
     }
+
 
     private class AccListAdapter extends ArrayAdapter<Clinic> {
         private int layout;
@@ -255,8 +294,8 @@ public class BookAppointment extends AppCompatActivity {
             case R.id.workHourChoice:
                 if (checked){
 
-                    searchText.setHint("YYYY-MM-DD or HH:MM (Military Time");
-                    searchTextLayout.setHint("YYYY-MM-DD or HH:MM (Military Time)");
+                    searchText.setHint("YYYY-MM-DD");
+                    searchTextLayout.setHint("YYYY-MM-DD");
 
                 }
                 break;

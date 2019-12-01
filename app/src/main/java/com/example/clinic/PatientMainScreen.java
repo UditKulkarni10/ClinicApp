@@ -200,7 +200,9 @@ public class PatientMainScreen extends AppCompatActivity {
             case R.id.pastAppBtn:
                 //startActivity(new Intent(this, PastAppointments.class));
                 break;
-
+            case R.id.rateClinic:
+                startActivity(new Intent (this, rateClinic.class));
+                break;
         }
     }
 }

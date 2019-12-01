@@ -1,8 +1,9 @@
 package com.example.clinic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Employee extends User {
+public class Employee extends User implements Serializable {
 
     private String role;
     private ArrayList<Service> serviceList;

@@ -50,50 +50,10 @@ public class EmployeeMainScreen extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
         getEmployeeServices();
-        list.setAdapter(new EmployeeMainScreen.ServiceListAdapter(EmployeeMainScreen.this, R.layout.employee_main_screen_service_layout, serviceList));
+        //list.setAdapter(new EmployeeMainScreen.ServiceListAdapter(EmployeeMainScreen.this, R.layout.employee_main_screen_service_layout, serviceList));
     }
 
-    public void getEmployeeServices(){
-        FirebaseDatabase mFirebaseInstance=FirebaseDatabase.getInstance();
-        mFirebaseInstance.getReference("Users").child(mUser.getUid()).child("Services").getRef().addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Service service = postSnapshot.getValue(Service.class);
-                    //Toast.makeText(EmployeeMainScreen.this,"Added: "+service.getName(),Toast.LENGTH_SHORT).show();
-                    DatabaseReference serviceReference=mFirebaseInstance.getReference().child("Services").child(service.getName());
-                    ValueEventListener eventListener = new ValueEventListener() {
-                        @Override
-                        //This checks to see if the service was deleted by the admin or not
-                        //If it was, then the service gets deleted from the employee's offered services as well
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.exists()){
-                                serviceList.add(service);
-                            }
-                            else{
-                                mDatabase.child("Users").child(mUser.getUid()).child("Services").child(service.getName()).removeValue();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    };
-                    serviceReference.addListenerForSingleValueEvent(eventListener);
-                }
-                list.setAdapter(new EmployeeMainScreen.ServiceListAdapter(EmployeeMainScreen.this, R.layout.employee_main_screen_service_layout, serviceList));
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Toast.makeText(EmployeeMainScreen.this,"Something went wrong",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     private class ServiceListAdapter extends ArrayAdapter<Service> {
         private int layout;
@@ -105,17 +65,18 @@ public class EmployeeMainScreen extends AppCompatActivity {
         @NonNull
         @Override
         public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent){
-            EmployeeMainScreen.ServicesViewHolder mainViewHolder=null;
+            EmployeeMainScreen.EmployeeServicesViewHolder mainViewHolder=null;
             if(convertView==null){
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout,parent,false);
             }
-            EmployeeMainScreen.ServicesViewHolder viewHolder= new EmployeeMainScreen.ServicesViewHolder();
+            EmployeeMainScreen.EmployeeServicesViewHolder viewHolder= new EmployeeMainScreen.EmployeeServicesViewHolder();
             viewHolder.deleteButton = convertView.findViewById(R.id.serviceDelBtn);
             viewHolder.name = convertView.findViewById(R.id.serviceNameMain);
             viewHolder.role = convertView.findViewById(R.id.serviceRoleMain);
             viewHolder.name.setText((getItem(position)).getName());
             viewHolder.role.setText((getItem(position)).getRole());
+            //Toast.makeText(EmployeeMainScreen.this,"I'm generating",Toast.LENGTH_SHORT).show();
             viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -137,7 +98,7 @@ public class EmployeeMainScreen extends AppCompatActivity {
             convertView.setTag(viewHolder);
 
             if(convertView !=null){
-                mainViewHolder = (EmployeeMainScreen.ServicesViewHolder) convertView.getTag();
+                mainViewHolder = (EmployeeMainScreen.EmployeeServicesViewHolder) convertView.getTag();
                 mainViewHolder.name.setText(getItem(position).getName());
                 mainViewHolder.role.setText(getItem(position).getRole());
             }
@@ -145,7 +106,7 @@ public class EmployeeMainScreen extends AppCompatActivity {
         }
     }
 
-    public class ServicesViewHolder{
+    public class EmployeeServicesViewHolder{
         TextView name;
         TextView role;
         Button deleteButton;
@@ -165,6 +126,52 @@ public class EmployeeMainScreen extends AppCompatActivity {
                 break;
 
         }
+    }
+    public void getEmployeeServices(){
+        FirebaseDatabase mFirebaseInstance=FirebaseDatabase.getInstance();
+        mFirebaseInstance.getReference("Users").child(mUser.getUid()).child("Services").getRef().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Service service = postSnapshot.getValue(Service.class);
+                    //Toast.makeText(EmployeeMainScreen.this,"Added: "+service.getName(),Toast.LENGTH_SHORT).show();
+                    DatabaseReference serviceReference=mFirebaseInstance.getReference().child("Services").child(service.getName());
+                    ValueEventListener eventListener = new ValueEventListener() {
+                        @Override
+                        //This checks to see if the service was deleted by the admin or not
+                        //If it was, then the service gets deleted from the employee's offered services as well
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                serviceList.add(service);
+                                //Toast.makeText(EmployeeMainScreen.this,"Got a service",Toast.LENGTH_SHORT).show();
+                                list.setAdapter(new EmployeeMainScreen.ServiceListAdapter(EmployeeMainScreen.this, R.layout.employee_main_screen_service_layout, serviceList));
+
+
+                            }
+                            else{
+                                mDatabase.child("Users").child(mUser.getUid()).child("Services").child(service.getName()).removeValue();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    };
+                    serviceReference.addListenerForSingleValueEvent(eventListener);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Toast.makeText(EmployeeMainScreen.this,"Something went wrong",Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     public void onBackPressed(){

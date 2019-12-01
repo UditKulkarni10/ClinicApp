@@ -114,6 +114,19 @@ public class PatientMainScreen extends AppCompatActivity {
                     if(getItem(position).isOverdue()){
                         Toast.makeText(PatientMainScreen.this,"Sorry, you missed your appointment :(",Toast.LENGTH_SHORT).show();
                     }
+                    else{
+                        mDatabase.child("Users").child(mUser.getUid()).child("Appointments").child("Appointment On "+getItem(position).getWorkHour().getDate()).removeValue().addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                appList.remove(getItem(position));
+                                Toast.makeText(PatientMainScreen.this, "Checked in! Please make sure to leave a rating :)", Toast.LENGTH_SHORT).show();
+                                finish();
+                                startActivity(new Intent(PatientMainScreen.this, PatientMainScreen.class));
+                            } else {
+                                Toast.makeText(PatientMainScreen.this, "Firebase Database error", Toast.LENGTH_LONG).show();
+                            }
+
+                        });
+                    }
 
 
 

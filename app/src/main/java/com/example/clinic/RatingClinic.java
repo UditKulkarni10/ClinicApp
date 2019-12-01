@@ -3,7 +3,6 @@ package com.example.clinic;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,17 +10,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 
 public class RatingClinic extends AppCompatActivity {
@@ -46,7 +41,9 @@ public class RatingClinic extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth= FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
-
+        Intent i=getIntent();
+        Clinic clinic = (Clinic)i.getSerializableExtra("clinicName");
+        String ClinicName = clinic.getClinicName();
         comments = (EditText) findViewById(R.id.comment);
         addButton = (Button) findViewById(R.id.addButton);
         radioGroup = (RadioGroup) findViewById(R.id.ratings);
@@ -86,18 +83,16 @@ public class RatingClinic extends AppCompatActivity {
                 if (comments == null || rating == null) {
                     Toast.makeText(RatingClinic.this, "Please don't leave any fields blank", Toast.LENGTH_SHORT).show();
                 } else {
-                    try {
+                    //try {
 
                         Rate newRate = new Rate();
 
-/*                        Bundle extras = getIntent().getExtras();
-                        assert extras != null;
-                        String ClinicName = extras.getString("ClinicName");*/
 
- //                       String newTitle = "Review for: " + ClinicName;
-                        String newTitle = "Review for: test";
 
- //                       newRate.setClinicName(ClinicName);
+                       String newTitle = "Review for: " + ClinicName;
+                        //String newTitle = "Review for: test";
+
+                        newRate.setClinicName(ClinicName);
                         newRate.setRating(rating);
                         newRate.setComments(comments.getText().toString());
 
@@ -106,20 +101,13 @@ public class RatingClinic extends AppCompatActivity {
 
 
 
-/*                        String commentToPass = comments.getText().toString();
-                        String ratingToPass = rating.toString();
 
-                        Intent i = new Intent(RatingClinic.this, rateClinic.class);
-                        i.putExtra("rating", ratingToPass);
-                        i.putExtra("comment", commentToPass);
 
-                        setResult(RESULT_OK, i);
+                       startActivity(new Intent(RatingClinic.this,PatientMainScreen.class));
 
-                       finish();*/
-
-                    } catch (RuntimeException e) {
-                        Toast.makeText(RatingClinic.this, "This is taking too long" , Toast.LENGTH_SHORT).show();
-                    }
+                   // }// catch (RuntimeException e) {
+                       // Toast.makeText(RatingClinic.this, "This is taking too long" , Toast.LENGTH_SHORT).show();
+                    //}
                 }
             }
         });

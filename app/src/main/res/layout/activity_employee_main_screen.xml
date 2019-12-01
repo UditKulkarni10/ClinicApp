@@ -17,7 +17,8 @@
     <ListView
         android:id="@+id/employeeServiceListView"
         android:layout_width="match_parent"
-        android:layout_height="521dp" />
+        android:layout_height="521dp"
+        tools:visibility="visible" />
 
     <LinearLayout
         android:layout_width="match_parent"

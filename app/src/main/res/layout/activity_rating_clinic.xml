@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:text="Rate the clinic from 1 (terrible) to 5 (amazing)" />
+
+    <RadioGroup
+        android:id="@+id/ratings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView15"
+        android:layout_marginTop="0dp"
+        android:onClick="onRadioButtonClicked">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4" />
+
+        <RadioButton
+            android:id="@+id/radioButton5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5" />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_above="@+id/addButton"
+        android:layout_below="@id/textView15"
+        android:layout_marginTop="230dp"
+        android:layout_marginBottom="186dp"
+        android:ems="10"
+        android:hint="Add comment here"
+        android:inputType="textNoSuggestions" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:onClick="onClick"
+        android:text="add review" />
+
+</RelativeLayout>

@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/C:\Users\uditk\Documents\GitHub\project-lab01-stack_inc
+    working_directory: ~/professor-forward/project-lab01-stack_inc
     docker:
       # Android the primary container
       - image: circleci/android:api-26-alpha

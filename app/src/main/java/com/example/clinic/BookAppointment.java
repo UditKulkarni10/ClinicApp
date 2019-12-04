@@ -265,6 +265,7 @@ public class BookAppointment extends AppCompatActivity {
                 bookingOptions.setAdapter(new BookAppointment.AccListAdapter(BookAppointment.this,R.layout.clinic_booking_layout,clinicChoice));
                 String search=searchText.getText().toString();
                 if(!search.isEmpty()){
+                    Toast.makeText(this,"Showing results...",Toast.LENGTH_SHORT).show();
                     getSearchResults(search);
                 }
                 else{
@@ -312,3 +313,4 @@ public class BookAppointment extends AppCompatActivity {
         }
     }
 }
+

@@ -13,7 +13,20 @@
         android:theme="@style/AppTheme"
         tools:overrideLibrary="com.google.firebase.auth"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".WelcomePage"></activity>
+        <activity android:name=".BookWorkHourChoice"></activity>
+        <activity android:name=".BookServiceChoice" />
+        <activity android:name=".BookAppointment" />
+        <activity android:name=".PatientMainScreen" />
+        <activity android:name=".EmployeeProfile" />
+        <activity android:name=".addAvaliability" />
+        <activity android:name=".EmployeeAddServices" />
+        <activity android:name=".RatingClinic" />
+        <activity android:name=".EmployeeMainScreen" />
+        <activity android:name=".Calendar" />
+        <activity android:name=".createNewRate" />
+        <activity android:name=".AccountsManagement" />
+        <activity android:name=".AdminControlPanel" />
+        <activity android:name=".WelcomePage" />
         <activity android:name=".createLogin" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity">
@@ -23,6 +36,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Services" />
+        <activity android:name=".ServiceInfo" />
+        <activity android:name=".rateClinic" />
     </application>
 
 </manifest>

@@ -1,56 +1,27 @@
-class UserAccount
+class User
 {
- 
-}
-
-
-
-class Administrator
-{
-    isA UserAccount;
-  * -- * Service;
+  String username;
+  String password;
 }
 
 class Employee
 {
-  isA UserAccount;
-  * -- * WalkInClinicProfile;
-}
+  isA User;
+  }
 
 class Patient
 {
-  isA UserAccount;
+  isA User;
 }
 
-class Service
+class WalkInClinicEmployee
 {
-  * -- * WalkInClinic;
-  * -- * WalkInClinicProfile;
+  isA Employee;
 }
 
-class WalkInClinic
+class Administrator
 {
-  * -- * WalkInClinicProfile;
+  isA Employee;
 }
 
-class WalkInClinicProfile
-{
-  String workingHours;
-  String address;
-    
-}
 
-class PatientAccount
-{
-  * -- * Patient;
-}
-
-class Rate
-{
-  * -- * Service;
-}
-
-class Appointment
-{
-  * -- * PatientAccount;
-}

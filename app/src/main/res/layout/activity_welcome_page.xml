@@ -16,10 +16,10 @@
             android:layout_height="107dp" />
 
         <TextView
-            android:id="@+id/welcome"
+            android:id="@+id/welcomeText"
             android:layout_width="match_parent"
             android:layout_height="82dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <Space
             android:layout_width="match_parent"

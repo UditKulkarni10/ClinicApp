@@ -1,0 +1,173 @@
+class Login
+{
+  * -- * User;
+  * -- * WelcomePage;
+  Boolean validate;
+  Boolean isAdmin;
+}
+
+class WelcomePage
+{
+  User user;
+}
+
+class CreateLogin
+{
+  * -- * User;
+}
+
+class User
+{
+ String name;
+  String username;
+  String role;
+  String lastName;
+   
+}
+class searchService
+{
+  *--* Service;
+}
+class searchAddress 
+{
+  *--* Employee;
+}
+class employeeAddServices
+{
+  *--*  Employee;
+}
+class Patient
+{
+  isA User;
+}
+
+class calendar
+{
+  1--* Employee;
+}
+
+class addAvailability
+{
+  *--* calendar;
+}
+class Employee
+{
+    isA User;
+String clinicName;
+  Integer phoneNumber;
+  String address;
+  Service[] serviceList;
+}
+
+class Service
+{
+ String role;
+  String name;
+}
+namespace -;
+
+class AdminControlPanel
+{
+  User AccountManagement;
+  Service Services;
+  1 -- 1 User;
+  1 -- * Service;
+}
+
+
+class Login
+{
+  position 481 292 109 41;
+  position.association Login__User 0,21 144,33;
+  position.association Login__WelcomePage 142,25 0,19;
+}
+
+class WelcomePage
+{
+  position 759 277 109 41;
+}
+
+class CreateLogin
+{
+  position 18 312 109 41;
+  position.association CreateLogin__User 102,0 0,57;
+}
+
+class User
+{
+  position 228 239 143 109;
+}
+
+namespace -;
+
+
+
+class Service
+{
+  position 482 622 113 75;
+}
+
+class AdminControlPanel
+{
+  position 403 471 205 75;
+  position.association Admin__AdminControlPanel 21,0 38,41;
+  position.association AdminControlPanel__User 101,0 104,109;
+  position.association AdminControlPanel__Service 187,75 16,0;
+}
+
+namespace -;
+
+class searchWorkHour
+{
+  *--* calendar;
+}
+
+class Employee
+{
+  position 50 430 109 45;
+}
+
+class Patient
+{
+  position 244 465 109 38;
+}
+
+class employeeAddServices
+{
+  position 228 593 155 41;
+  position.association Employee__employeeAddServices 30,0 125,75;
+  position.association Service__employeeAddServices 156,10 0,10;
+}
+
+namespace -;
+
+
+class calendar
+{
+  position 49 600 109 41;
+  position.association Employee__calendar 6,0 40,109;
+}
+
+class addAvailability
+{
+  position 195 648 109 41;
+}//$?[End_of_model]$?
+
+namespace -;
+
+class searchWorkHour
+{
+  position 61 696 122 41;
+  position.association calendar__searchWorkHour 10,0 78,41;
+}
+
+class searchService
+{
+  position 706 626 109 41;
+  position.association Service__searchService 0,9 113,11;
+}
+
+class searchAddress
+{
+  position 10 370 109 41;
+}
